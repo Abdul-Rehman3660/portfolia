@@ -11,41 +11,54 @@ const TECH_STACK = [
   { name: 'RAG Chatbot', color: '#8B5CF6', position: [-3, 3.5, 1] as [number, number, number] },
   { name: 'Agentic Model', color: '#EC4899', position: [3, 3.5, 1] as [number, number, number] },
   { name: 'Vector Database', color: '#10B981', position: [0, 3, -1] as [number, number, number] },
-  
+
   // Languages (Upper Middle)
   { name: 'Python', color: '#3776AB', position: [-2, 2, -1] as [number, number, number] },
   { name: 'SQL', color: '#003B57', position: [2, 2, -1] as [number, number, number] },
-  
+  { name: 'TypeScript', color: '#3178C6', position: [0, 2.5, 0.5] as [number, number, number] },
+  { name: 'JavaScript', color: '#F7DF1E', position: [-1, 2.3, 0.5] as [number, number, number] },
+
   // Frontend (Left Side)
   { name: 'React', color: '#61DAFB', position: [-3, 1, 0] as [number, number, number] },
+  { name: 'Next.js', color: '#000000', position: [-4, 1.5, 0.3] as [number, number, number] },
   { name: 'HTML5', color: '#E34F26', position: [-4, 0.5, 0.5] as [number, number, number] },
   { name: 'CSS3', color: '#1572B6', position: [-4, -0.5, 0.5] as [number, number, number] },
   { name: 'Tailwind CSS', color: '#06B6D4', position: [-3, -1, 0] as [number, number, number] },
   { name: 'Bootstrap', color: '#7952B3', position: [-4, -1.5, 0.5] as [number, number, number] },
-  
+  { name: 'Three.js', color: '#000000', position: [-4.5, 0, 0.8] as [number, number, number] },
+  { name: 'Framer Motion', color: '#0055FF', position: [-4.5, -0.8, 0.8] as [number, number, number] },
+
   // Backend (Right Side)
   { name: 'FastAPI', color: '#009688', position: [3, 1, 0] as [number, number, number] },
   { name: 'NestJS', color: '#E0234E', position: [4, 0.5, 0.5] as [number, number, number] },
-  
+  { name: 'Node.js', color: '#339933', position: [4, 1.5, 0.3] as [number, number, number] },
+  { name: 'Express', color: '#000000', position: [4.5, 0.8, 0.8] as [number, number, number] },
+
   // Databases (Bottom Middle)
   { name: 'PostgreSQL', color: '#4169E1', position: [-2, -2, 0] as [number, number, number] },
   { name: 'MongoDB', color: '#47A248', position: [2, -2, 0] as [number, number, number] },
-  
+  { name: 'Supabase', color: '#3ECF8E', position: [0, -2.5, 0.5] as [number, number, number] },
+  { name: 'Redis', color: '#DC382D', position: [-1, -3, 0.3] as [number, number, number] },
+
   // APIs (Middle)
   { name: 'REST APIs', color: '#0091EA', position: [-1, 0, -1] as [number, number, number] },
   { name: 'GraphQL', color: '#E535AB', position: [1, 0, -1] as [number, number, number] },
-  
+
   // Auth & Payment (Lower)
   { name: 'JWT', color: '#000000', position: [-1, -2.5, 0.5] as [number, number, number] },
   { name: 'OAuth', color: '#4285F4', position: [1, -2.5, 0.5] as [number, number, number] },
   { name: 'Stripe API', color: '#635BFF', position: [0, -3, 0] as [number, number, number] },
-  
+
   // Tools & Other (Outer Ring)
   { name: 'Git', color: '#F05032', position: [-3.5, 2, -0.5] as [number, number, number] },
   { name: 'GitHub', color: '#181717', position: [3.5, 2, -0.5] as [number, number, number] },
   { name: 'Postman', color: '#FF6C37', position: [-3.5, -2, -0.5] as [number, number, number] },
   { name: 'SEO', color: '#FACC15', position: [3.5, -2, -0.5] as [number, number, number] },
   { name: 'E-Commerce', color: '#10B981', position: [0, 1.5, 1.5] as [number, number, number] },
+  { name: 'Vercel', color: '#000000', position: [4.5, -0.5, 0.5] as [number, number, number] },
+  { name: 'Docker', color: '#2496ED', position: [4.5, -1.3, 0.5] as [number, number, number] },
+  { name: 'AWS', color: '#FF9900', position: [4.5, 2, 0.5] as [number, number, number] },
+  { name: 'Figma', color: '#F24E1E', position: [-4.5, 2, 0.5] as [number, number, number] },
 ]
 
 interface BubbleProps {
