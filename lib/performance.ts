@@ -9,7 +9,9 @@ export function preloadExternalResources() {
   const preconnects = [
     'https://fonts.googleapis.com',
     'https://fonts.gstatic.com',
-    'https://cacuguwczoezvuqilvvl.supabase.co',
+    'https://*.supabase.co',
+    'https://vercel.live',
+    'https://va.vercel-scripts.com',
   ]
 
   preconnects.forEach((href) => {
@@ -24,14 +26,32 @@ export function preloadExternalResources() {
   const fontLinks = [
     {
       href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap',
-      rel: 'stylesheet',
+      rel: 'preload',
+      as: 'style',
+      onload: "this.onload=null;this.rel='stylesheet'",
     },
   ]
 
-  fontLinks.forEach(({ href, rel }) => {
+  fontLinks.forEach(({ href, rel, as, onload }) => {
     const link = document.createElement('link')
     link.rel = rel
     link.href = href
+    if (as) link.as = as
+    if (onload) link.onload = onload
+    document.head.appendChild(link)
+  })
+
+  // Preload critical resources
+  const criticalResources = [
+    { href: '/icon.svg', as: 'image', type: 'image/svg+xml' },
+  ]
+
+  criticalResources.forEach(({ href, as, type }) => {
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.href = href
+    link.as = as
+    if (type) link.type = type
     document.head.appendChild(link)
   })
 }

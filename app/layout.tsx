@@ -4,6 +4,8 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { PageLoader } from '@/components/page-loader'
 import { CustomCursor } from '@/components/custom-cursor'
+import { ServiceWorker } from '@/components/service-worker'
+import { PerformanceOptimizer } from '@/components/performance-optimizer'
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
@@ -25,10 +27,11 @@ const sora = Sora({
 })
 
 export const metadata: Metadata = {
-  title: 'Dani Macro — Full-Stack Developer & Product Builder',
+  title: 'Abdul Rehman — Full-Stack Developer & AI Engineer',
   description:
-    'I help SaaS founders, agencies, and startups ship performant web apps. Strategy, design, and code — delivered in weeks, not months.',
+    'Full-Stack Developer & AI Engineer specializing in modern web technologies, React, Next.js, and AI integration.',
   generator: 'Next.js',
+  manifest: '/manifest.json',
   icons: {
     icon: [
       {
@@ -45,6 +48,16 @@ export const metadata: Metadata = {
       },
     ],
     apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'Abdul Rehman — Full-Stack Developer & AI Engineer',
+    description: 'Full-Stack Developer & AI Engineer specializing in modern web technologies',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Abdul Rehman — Full-Stack Developer & AI Engineer',
+    description: 'Full-Stack Developer & AI Engineer specializing in modern web technologies',
   },
 }
 
@@ -63,6 +76,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable}`}>
       <body className="font-sans antialiased">
+        <PerformanceOptimizer />
+        <ServiceWorker />
         <PageLoader />
         <CustomCursor />
         {children}
