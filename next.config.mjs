@@ -3,38 +3,31 @@ const nextConfig = {
   // Enable React Strict Mode for better development experience
   reactStrictMode: true,
 
-  // Disable Turbopack due to CSS parsing issues with Tailwind v4
-  // Use standard webpack instead
-  // turbopack: { ... },
+  // Use Turbopack with basic config
+  turbopack: {},
 
   // Optimize builds
   poweredByHeader: false,
   compress: true,
-
-  // Enable SWC minification for better performance
-  swcMinify: true,
 
   // TypeScript - don't ignore errors in production
   typescript: {
     ignoreBuildErrors: process.env.NODE_ENV === 'development',
   },
 
-  // Image optimization - aggressive settings for speed
+  // Image optimization - basic settings for compatibility
   images: {
     unoptimized: false,
     formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000, // 1 year
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96],
+    minimumCacheTTL: 60,
   },
 
   // Experimental features for performance
   experimental: {
     optimizeCss: true,
     scrollRestoration: true,
-    typedRoutes: true,
   },
 
   // Performance optimizations
@@ -42,54 +35,11 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Optimize bundle splitting
-    if (!dev && !isServer) {
-      config.optimization.splitChunks.chunks = 'all'
-      config.optimization.splitChunks.cacheGroups = {
-        ...config.optimization.splitChunks.cacheGroups,
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-          priority: 10,
-        },
-        three: {
-          test: /[\\/]node_modules[\\/](three|@react-three)/,
-          name: 'three',
-          chunks: 'all',
-          priority: 20,
-        },
-        ui: {
-          test: /[\\/]node_modules[\\/](@radix-ui|lucide-react|framer-motion)/,
-          name: 'ui',
-          chunks: 'all',
-          priority: 15,
-        },
-      }
-    }
-
-    // Add compression
-    if (!dev) {
-      config.optimization.minimizer = [
-        ...config.optimization.minimizer,
-        new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)({
-          analyzerMode: 'static',
-          openAnalyzer: false,
-          reportFilename: './bundle-report.html',
-        }),
-      ]
-    }
-
-    return config
-  },
-  
   // Headers for better caching and security
   async headers() {
     return [
       {
-        source: '/:all*(svg|jpg|png|webp|ico|woff|woff2)',
+        source: '/:all*(svg|jpg|png|webp|ico)',
         locale: false,
         headers: [
           {
@@ -139,7 +89,7 @@ const nextConfig = {
       },
     ]
   },
-  
+
   // Redirects for clean URLs
   async redirects() {
     return [

@@ -26,18 +26,14 @@ export function preloadExternalResources() {
   const fontLinks = [
     {
       href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap',
-      rel: 'preload',
-      as: 'style',
-      onload: "this.onload=null;this.rel='stylesheet'",
+      rel: 'stylesheet',
     },
   ]
 
-  fontLinks.forEach(({ href, rel, as, onload }) => {
+  fontLinks.forEach(({ href, rel }) => {
     const link = document.createElement('link')
     link.rel = rel
     link.href = href
-    if (as) link.as = as
-    if (onload) link.onload = onload
     document.head.appendChild(link)
   })
 

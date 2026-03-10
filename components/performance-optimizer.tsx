@@ -79,7 +79,10 @@ export function PerformanceOptimizer() {
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
           entries.forEach((entry) => {
-            console.log('FID:', entry.processingStart - entry.startTime)
+            const fidEntry = entry as any
+            if (fidEntry.processingStart) {
+              console.log('FID:', fidEntry.processingStart - entry.startTime)
+            }
           })
         })
         fidObserver.observe({ entryTypes: ['first-input'] })
@@ -89,8 +92,9 @@ export function PerformanceOptimizer() {
           let clsValue = 0
           const entries = list.getEntries()
           entries.forEach((entry) => {
-            if (!(entry as any).hadRecentInput) {
-              clsValue += (entry as any).value
+            const clsEntry = entry as any
+            if (!clsEntry.hadRecentInput && clsEntry.value) {
+              clsValue += clsEntry.value
             }
           })
           console.log('CLS:', clsValue)
