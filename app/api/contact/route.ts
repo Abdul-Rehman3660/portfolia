@@ -1,5 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
-import { supabase } from "@/lib/supabase"
+
+// Dynamic import for Supabase to avoid build-time initialization
+let supabase: any = null
+
+async function getSupabaseClient() {
+  if (!supabase) {
+    try {
+      const { supabase: supabaseClient } = await import("@/lib/supabase")
+      supabase = supabaseClient
+    } catch (error) {
+      console.warn("Supabase client not available:", error)
+      return null
+    }
+  }
+  return supabase
+}
 
 // Simple in-memory rate limiting (for production, use Redis/Upstash)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
@@ -123,7 +138,34 @@ export async function POST(request: NextRequest) {
     }
 
     // Insert into Supabase with sanitized data
-    const { data, error } = await supabase
+    const supabaseClient = await getSupabaseClient()
+    if (!supabaseClient) {
+      console.warn("Supabase not configured, skipping database save")
+      // Send email notification if configured
+      if (process.env.RESEND_API_KEY || process.env.GMAIL_APP_PASS) {
+        try {
+          await sendEmailNotification(sanitizedData)
+          return NextResponse.json({
+            success: true,
+            message: "Thank you! I'll get back to you soon.",
+            data: { id: 'temp', created_at: new Date().toISOString() }
+          })
+        } catch (emailError) {
+          console.error("Email notification failed:", emailError)
+          return NextResponse.json(
+            { error: "Email service not configured. Please contact directly." },
+            { status: 500 }
+          )
+        }
+      }
+      return NextResponse.json({
+        success: true,
+        message: "Thank you! I'll get back to you soon.",
+        data: { id: 'temp', created_at: new Date().toISOString() }
+      })
+    }
+
+    const { data, error } = await supabaseClient
       .from("leads")
       .insert({
         name: sanitizedData.name,
