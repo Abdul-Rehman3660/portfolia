@@ -1,0 +1,155 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+img, svg { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+* { -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --background: oklch(0.988 0.004 95);
+  --foreground: oklch(0.16 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.02 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.02 255);
+  --primary: oklch(0.14 0.02 255);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.008 95);
+  --secondary-foreground: oklch(0.22 0.02 255);
+  --muted: oklch(0.955 0.006 95);
+  --muted-foreground: oklch(0.45 0.02 255);
+  --accent: oklch(0.78 0.1 78);
+  --accent-foreground: oklch(0.18 0.04 78);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.9 0.008 95);
+  --input: oklch(0.9 0.008 95);
+  --ring: oklch(0.78 0.1 78);
+  --radius: 0.75rem;
+  --gold: oklch(0.76 0.1 78);
+  --gold-foreground: oklch(0.16 0.04 78);
+  --sky: oklch(0.62 0.1 240);
+  --sky-foreground: oklch(0.98 0.02 240);
+  --premium-glass: rgba(255, 255, 255, 0.45);
+}
+
+.dark {
+  --background: oklch(0.11 0.018 250);
+  --foreground: oklch(0.96 0.008 95);
+  --card: oklch(0.14 0.02 250);
+  --card-foreground: oklch(0.96 0.008 95);
+  --popover: oklch(0.14 0.02 250);
+  --popover-foreground: oklch(0.96 0.008 95);
+  --primary: oklch(0.97 0.01 95);
+  --primary-foreground: oklch(0.1 0.02 250);
+  --secondary: oklch(0.18 0.022 250);
+  --secondary-foreground: oklch(0.96 0.008 95);
+  --muted: oklch(0.2 0.02 250);
+  --muted-foreground: oklch(0.66 0.02 95);
+  --accent: oklch(0.76 0.095 78);
+  --accent-foreground: oklch(0.12 0.04 78);
+  --border: oklch(0.24 0.02 250);
+  --input: oklch(0.22 0.02 250);
+  --ring: oklch(0.76 0.095 78);
+  --gold: oklch(0.78 0.09 78);
+  --gold-foreground: oklch(0.12 0.04 78);
+  --sky: oklch(0.62 0.09 235);
+  --sky-foreground: oklch(0.96 0.02 235);
+  --premium-glass: rgba(12, 16, 28, 0.65);
+}
+
+@theme inline {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Sora', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-sky: var(--sky);
+  --color-sky-foreground: var(--sky-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-attachment: fixed;
+  }
+  html.dark body {
+    background-image:
+      radial-gradient(ellipse 120% 80% at 50% -20%, oklch(0.22 0.04 250 / 0.4), transparent 55%),
+      radial-gradient(ellipse 80% 50% at 100% 40%, oklch(0.78 0.09 78 / 0.07), transparent 50%),
+      radial-gradient(ellipse 60% 40% at 0% 85%, oklch(0.62 0.08 235 / 0.09), transparent 45%);
+  }
+  html:not(.dark) body {
+    background-image:
+      radial-gradient(ellipse 100% 60% at 50% -10%, oklch(0.96 0.02 95 / 0.85), transparent 50%),
+      radial-gradient(ellipse 80% 50% at 100% 0%, oklch(0.78 0.08 78 / 0.07), transparent 45%);
+  }
+  ::selection {
+    background: oklch(0.78 0.09 78 / 0.35);
+    color: var(--foreground);
+  }
+}
+
+@keyframes fadeUp   { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes slideInLeft  { from { opacity:0; transform:translateX(-24px); } to { opacity:1; transform:translateX(0); } }
+@keyframes slideInRight { from { opacity:0; transform:translateX(24px);  } to { opacity:1; transform:translateX(0); } }
+@keyframes blink    { 0%,100% { opacity:1; } 50% { opacity:0; } }
+@keyframes drawLine { from { transform:scaleY(0); } to { transform:scaleY(1); } }
+@keyframes shimmer  { 0% { background-position:-200% 0; } 100% { background-position:200% 0; } }
+@keyframes countUp  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.animate-fade-up    { animation: fadeUp   0.5s ease both; }
+.animate-fade-in    { animation: fadeIn   0.4s ease both; }
+.animate-slide-left  { animation: slideInLeft  0.5s ease both; }
+.animate-slide-right { animation: slideInRight 0.5s ease both; }
+.animate-blink      { animation: blink    1s step-end infinite; }
+.animate-draw-line  { animation: drawLine 1s ease both; transform-origin: top; }
+.animate-count-up   { animation: countUp  0.4s ease both; }
+
+.text-balance { text-wrap: balance; }
+.text-pretty  { text-wrap: pretty;  }
+
+.glass { background:rgba(255,255,255,.72); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+.dark .glass { background:rgba(10,10,20,.72); }
+
+.hover-lift  { transition:transform 0.2s ease; }
+.hover-lift:hover { transform:translateY(-3px); }
+.hover-scale { transition:transform 0.2s ease; }
+.hover-scale:hover { transform:scale(1.02); }
+
+.shimmer {
+  background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted-foreground) / 0.1) 50%, hsl(var(--muted)) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.line-clamp-3 { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
