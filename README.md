@@ -63,8 +63,8 @@ A modern, high-performance portfolio website built with Next.js 16, React 19, Ty
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/portfolio.git
-cd portfolio
+git clone https://github.com/Abdul-Rehman3660/portfolia.git
+cd portfolia
 
 # Install dependencies
 pnpm install

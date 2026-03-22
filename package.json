@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/portfolio.git"
+    "url": "https://github.com/Abdul-Rehman3660/portfolia.git"
   },
   "scripts": {
     "dev": "next dev --webpack",
